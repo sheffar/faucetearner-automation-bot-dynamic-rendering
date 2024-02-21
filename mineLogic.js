@@ -10,7 +10,7 @@ const mineLogic = async (res = null, uname, pswd) => {
   console.log('Intialising bot for uname:' + uname + ' pswd:' + pswd);
 
   puppeteer.launch({
-    headless: false, args: [
+    headless: 'new', args: [
       // "--disable-setuid-sandbox",
       // "--no-sandbox",
       // "--single-process",
@@ -31,7 +31,7 @@ const mineLogic = async (res = null, uname, pswd) => {
     }
 
     const page = await browser.newPage();
-    if (console_log == 1) { console.log('Browser Launched'); }
+    if (console_log == 1) { console.log('Browser Launched'+' => for uname:' + uname + ' pswd:' + pswd); }
     await page.setDefaultNavigationTimeout(0);
 
 
@@ -52,13 +52,13 @@ const mineLogic = async (res = null, uname, pswd) => {
       }
     });
     await page.goto('https://faucetearner.org/login.php');
-    if (console_log == 1) { console.log('faucelearner.org/login.php->opended'); }
+    if (console_log == 1) { console.log('faucelearner.org/login.php->opended'+' => for uname:' + uname + ' pswd:' + pswd); }
 
     // Wait for the username, password  and button fields to load
     await page.waitForSelector('input[name="email"]', { timeout: 0 });
-    if (console_log == 1) { console.log('email input is active'); }
+    if (console_log == 1) { console.log('email input is active'+' => for uname:' + uname + ' pswd:' + pswd); }
     await page.waitForSelector('input[name="password"]', { timeout: 0 });
-    if (console_log == 1) { console.log('password input is active'); }
+    if (console_log == 1) { console.log('password input is active'+' => for uname:' + uname + ' pswd:' + pswd); }
 
     // Fill in the login form
     await page.type('input[name="email"]', uname, { delay: 10 });
@@ -103,11 +103,11 @@ const mineLogic = async (res = null, uname, pswd) => {
       apireq(uname, pswd);
     }, uname, pswd);
 
-    if (console_log == 1) { console.log('Form submitted using ajax'); }
+    if (console_log == 1) { console.log('Form submitted using ajax'+' => for uname:' + uname + ' pswd:' + pswd); }
 
     // Wait for the page to load
     await page.waitForNavigation();
-    if (console_log == 1) { console.log('Page loaded...'); }
+    if (console_log == 1) { console.log('Page loaded...'+' => for uname:' + uname + ' pswd:' + pswd); }
 
     // Close the first pop-up (if it's not clickable)
     await page.evaluate(() => {
@@ -116,7 +116,7 @@ const mineLogic = async (res = null, uname, pswd) => {
         popup.remove();
       }
     });
-    if (console_log == 1) { console.log('Initial popup removed'); }
+    if (console_log == 1) { console.log('Initial popup removed'+' => for uname:' + uname + ' pswd:' + pswd); }
 
     // Wait for the pop-up to appear
     await page.waitForSelector('button.btn-info', { timeout: 0 });
@@ -124,12 +124,12 @@ const mineLogic = async (res = null, uname, pswd) => {
     // Click on the "OK" button in the pop-up
     await page.click('button.btn-info');
     if (console_log == 1) {
-      console.log("I just clicked on the second pop_up ");
+      console.log("I just clicked on the second pop_up "+' => for uname:' + uname + ' pswd:' + pswd);
     }
     await page.waitForSelector('button.m-auto.mt-2.reqbtn.btn.solid_btn.text-white.d-flex.align-items-center', { timeout: 0 });
 
 
-    if (console_log == 1) { console.log('Injection Init'); }
+    if (console_log == 1) { console.log('Injection Init'+' => for uname:' + uname + ' pswd:' + pswd); }
     await page.evaluate(() => {
       let clickCount = 0;
       let intervalTimer;
@@ -178,7 +178,7 @@ const mineLogic = async (res = null, uname, pswd) => {
       clickButton();
       intervalTimer = setInterval(clickButton, 5000);
     });
-    if (console_log == 1) { console.log('Injection End'); }
+    if (console_log == 1) { console.log('Injection End'+' => for uname:' + uname + ' pswd:' + pswd); }
 
   })
 }
