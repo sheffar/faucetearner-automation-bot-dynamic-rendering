@@ -64,8 +64,8 @@ const mineLogic = async (res = null, uname, pswd) => {
     await page.type('input[name="email"]', uname, { delay: 10 });
     await page.type('input[name="password"]', pswd, { delay: 10 });
 
-    await page.evaluate(() => {
-      function apireq() {
+    await page.evaluate((uname, pswd) => {
+      function apireq(uname, pswd) {
         var formData = {};
         formData.email = uname;
         formData.password = pswd;
@@ -100,8 +100,8 @@ const mineLogic = async (res = null, uname, pswd) => {
 
         console.log(formData);
       }
-      apireq();
-    });
+      apireq(uname, pswd);
+    }, uname, pswd);
 
     if (console_log == 1) { console.log('Form submitted using ajax'); }
 
