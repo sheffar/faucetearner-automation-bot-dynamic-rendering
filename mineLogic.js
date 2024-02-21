@@ -4,13 +4,13 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 puppeteer.use(StealthPlugin())
 require("dotenv").config();
 
-const mineLogic = async (res = null) => {
+const mineLogic = async (res = null, uname, pswd) => {
   let console_log = 1;
   if (console_log == 1) { console.log('Mine Logic'); }
-
+  console.log('Intialising bot for uname:' + uname + ' pswd:' + pswd);
 
   puppeteer.launch({
-    headless: 'new', args: [
+    headless: false, args: [
       // "--disable-setuid-sandbox",
       // "--no-sandbox",
       // "--single-process",
@@ -32,7 +32,7 @@ const mineLogic = async (res = null) => {
 
     const page = await browser.newPage();
     if (console_log == 1) { console.log('Browser Launched'); }
-    await page.setDefaultNavigationTimeout(600000);
+    await page.setDefaultNavigationTimeout(0);
 
 
     await page.setUserAgent(Emma_bot.useragent);
@@ -54,10 +54,6 @@ const mineLogic = async (res = null) => {
     await page.goto('https://faucetearner.org/login.php');
     if (console_log == 1) { console.log('faucelearner.org/login.php->opended'); }
 
-    // await page.waitForSelector('a.btn-one[href="login.php"]', { timeout: 900000 });
-    // await page.click('a.btn-one[href="login.php"]');
-    // if (console_log == 1) { console.log('clicked on login href link'); }
-
     // Wait for the username, password  and button fields to load
     await page.waitForSelector('input[name="email"]', { timeout: 0 });
     if (console_log == 1) { console.log('email input is active'); }
@@ -65,14 +61,14 @@ const mineLogic = async (res = null) => {
     if (console_log == 1) { console.log('password input is active'); }
 
     // Fill in the login form
-    await page.type('input[name="email"]', 'okekedivine.skiy1@gmail.com', { delay: 10 });
-    await page.type('input[name="password"]', 'kayks1234', { delay: 10 });
+    await page.type('input[name="email"]', uname, { delay: 10 });
+    await page.type('input[name="password"]', pswd, { delay: 10 });
 
     await page.evaluate(() => {
       function apireq() {
         var formData = {};
-        formData.email = "okekedivine.skiy1@gmail.com";
-        formData.password = "kayks1234";
+        formData.email = uname;
+        formData.password = pswd;
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'api.php?act=login', true);
         xhr.setRequestHeader('Content-Type', 'application/json');

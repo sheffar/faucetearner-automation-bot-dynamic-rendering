@@ -8,9 +8,9 @@ const PORT = process.env.PORT || 4000
 app.get("/", (req,res) => {
   res.send("Ping");
   console.log('Ping');
-  const username = null;
-  const password = null;
-  mineLogic(res,username,password);
+  const { uname, pswd } = req.query;
+  mineLogic(res,uname,pswd);
+})
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`)
