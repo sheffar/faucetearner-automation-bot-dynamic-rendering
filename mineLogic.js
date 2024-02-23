@@ -32,7 +32,7 @@ const mineLogic = async (res = null, uname, pswd) => {
 
     const page = await browser.newPage();
     if (console_log == 1) { console.log('Browser Launched'+' => for uname:' + uname + ' pswd:' + pswd); }
-    await page.setDefaultNavigationTimeout(0);
+    await page.setDefaultNavigationTimeout(60000);
 
 
     await page.setUserAgent(Emma_bot.useragent);
